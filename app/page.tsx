@@ -50,8 +50,13 @@ export default function Home() {
       return;
     }
 
-    const canvas = await html2canvas(report);
-
+    const canvas = await html2canvas(report, {
+      backgroundColor: "#ffffff",
+      scale: 2,
+      useCORS: true,
+      logging: false,
+      });
+ 
     const img = canvas.toDataURL("image/png");
 
     const pdf = new jsPDF("p", "mm", "a4");
@@ -238,11 +243,15 @@ Deploy to AWS Amplify`}
 
             ) : (
 
-              <div
-                id="report"
-                className="mt-6 bg-gray-50 rounded-xl p-6 border prose max-w-none"
-              >
-
+                <div
+                  id="report"
+                  style={{
+                  background: "#ffffff",
+                  padding: "24px",
+                  border: "1px solid #ddd",
+                  borderRadius: "12px",
+                     }}
+                 >
                 <ReactMarkdown remarkPlugins={[remarkGfm]}>
                   {result}
                 </ReactMarkdown>
